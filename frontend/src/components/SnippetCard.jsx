@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pencil, Trash2, Heart } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { formatData } from '../lib/utils'; 
+import { formatData } from '../lib/utils'; //
 
 const SnippetCard = ({ snippet, onEdit, onDelete, onViewDetails }) => {
     
@@ -25,14 +25,14 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onViewDetails }) => {
             if (!dateString) return '';
             const dateObj = new Date(dateString);
             if (isNaN(dateObj.getTime())) return '';
-            return formatData(dateObj);
+            return formatData(dateObj); //
         } catch (error) {
             return '';
         }
     };
 
     return (
-        <div className="card bg-[#1e293b] border border-white/5 shadow-xl rounded-2xl h-[360px] flex flex-col overflow-hidden relative transition-all duration-300">
+        <div className="card bg-[#1e293b] border border-white/5 shadow-xl rounded-2xl h-[380px] flex flex-col overflow-hidden relative transition-all duration-300">
             <div className="card-body p-6 flex flex-col h-full overflow-hidden">
                 
                 {/* Top Row: Badges & Actions */}
@@ -48,13 +48,8 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onViewDetails }) => {
                         </span>
                     </div>
                     
-                    {/* Right Side: DATE, Favorite, Edit, Delete */}
+                    {/* Right Side: Favorite, Edit, Delete (Date removed from here to fix wrapping) */}
                     <div className="flex gap-2 items-center">
-                        {/* Time Show */}
-                        <span className="text-[10px] text-slate-500 font-semibold tracking-widest mr-1 uppercase">
-                            {getFormattedDate()}
-                        </span>
-
                         {snippet.isFavorite && (
                             <div className="p-1.5 bg-red-500/10 text-red-500 rounded-lg border border-red-500/20" title="Favorite">
                                 <Heart size={14} fill="currentColor" />
@@ -83,19 +78,26 @@ const SnippetCard = ({ snippet, onEdit, onDelete, onViewDetails }) => {
                 </h2>
                 
                 <p 
-                    className="text-slate-400 text-sm opacity-70 line-clamp-2 break-all leading-relaxed" 
+                    className="text-slate-400 text-sm opacity-70 line-clamp-2 break-all leading-relaxed mb-2" 
                     title={snippet.description}
                 >
                     {snippet.description}
                 </p>
 
                 {/* Code Preview */}
-                <div className="bg-[#0b0f19] rounded-xl px-4 pt-0 pb-2 border border-white/5 mb-4 h-[100px] overflow-y-auto overflow-x-hidden no-scrollbar">
+                <div className="bg-[#0b0f19] rounded-xl px-4 pt-0 pb-2 border border-white/5 mb-2 h-[100px] overflow-y-auto overflow-x-hidden no-scrollbar">
                     <pre className="m-0 p-0">
                         <code className="text-[#4ade80] text-[12px] font-mono block leading-[1.3rem] whitespace-pre-wrap break-all opacity-95 pt-[0.35rem]">
                             {snippet.codeBlock?.trim()}
                         </code>
                     </pre>
+                </div>
+
+                {/* Date Section: Fixed at the bottom of content area */}
+                <div className="flex justify-end mb-1">
+                    <span className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase">
+                        {getFormattedDate()}
+                    </span>
                 </div>
 
                 {/* Footer Buttons */}
