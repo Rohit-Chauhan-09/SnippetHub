@@ -1,6 +1,6 @@
 import React from 'react';
 import toast from 'react-hot-toast';
-import { Copy } from 'lucide-react'; // Icon
+import { Copy } from 'lucide-react';
 
 const SnippetModal = ({ snippet, isOpen, onClose }) => {
     if (!isOpen || !snippet) return null;
@@ -21,7 +21,7 @@ const SnippetModal = ({ snippet, isOpen, onClose }) => {
                 onClick={onClose}
             ></div>
 
-            <div className="relative bg-[#1e293b] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/10 shadow-2xl flex flex-col">
+            <div className="relative bg-[#1e293b] w-full max-w-4xl max-h-[90vh] rounded-2xl border border-white/10 shadow-2xl flex flex-col overflow-hidden">
                 
                 <div className="sticky top-0 bg-[#1e293b] p-6 border-b border-white/5 flex justify-between items-start z-10">
                     <div>
@@ -43,19 +43,23 @@ const SnippetModal = ({ snippet, isOpen, onClose }) => {
                     </button>
                 </div>
 
-                <div className="p-6 space-y-6">
+                <div className="p-6 space-y-6 overflow-y-auto flex-1">
+                    
                     <div>
                         <h3 className="text-slate-500 uppercase text-[10px] font-black tracking-widest mb-2">Description</h3>
-                        <p className="text-slate-300 leading-relaxed">
-                            {snippet.description}
-                        </p>
+                        
+                        <div className="max-h-32 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-700">
+
+                            <p className="text-slate-300 leading-relaxed break-words whitespace-pre-wrap">
+                                {snippet.description}
+                            </p>
+                        </div>
                     </div>
 
                     <div>
                         <div className="flex justify-between items-center mb-2">
                             <h3 className="text-slate-500 uppercase text-[10px] font-black tracking-widest">Source Code</h3>
                             
-                            {/* Copy Button --- */}
                             <button 
                                 onClick={() => {
                                     navigator.clipboard.writeText(snippet.codeBlock);
@@ -68,8 +72,8 @@ const SnippetModal = ({ snippet, isOpen, onClose }) => {
                             </button>
                         </div>
                         
-                        <div className="bg-[#0b0f19] rounded-xl p-6 border border-white/5 shadow-inner">
-                            <pre className="font-mono text-sm leading-relaxed text-[#4ade80] overflow-x-auto scrollbar-thin scrollbar-thumb-blue-900">
+                        <div className="bg-[#0b0f19] rounded-xl p-4 border border-white/5 shadow-inner max-h-[300px] sm:max-h-[400px] overflow-y-auto overflow-x-auto scrollbar-thin scrollbar-thumb-blue-900">
+                            <pre className="font-mono text-sm leading-relaxed text-[#4ade80]">
                                 <code className="whitespace-pre">
                                     {snippet.codeBlock}
                                 </code>
